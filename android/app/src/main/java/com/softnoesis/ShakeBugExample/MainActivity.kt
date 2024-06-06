@@ -1,4 +1,4 @@
-package com.shakebugexample
+package com.softnoesis.ShakeBugExample
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

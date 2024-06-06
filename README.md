@@ -1,79 +1,227 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# shakebug-react-native
 
-# Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+<a href="https://www.shakebug.com"><img src="https://www.shakebug.com/assets/images/logo.png"></a>
 
-## Step 1: Start the Metro Server
+Shakebug allows users to report the bug from your mobile phone for your application. Here users just need to shake their mobile and all the data regarding bugs & crashes can be seen by developers through their log in panel easily.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+For more info, visit [shakebug.com](https://www.shakebug.com).
 
-To start Metro, run the following command from the _root_ of your React Native project:
 
-```bash
-# using npm
-npm start
 
-# OR using Yarn
-yarn start
-```
+## Installation
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Navigate to your React Native project directory and install `shakebug-react-native`
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+ npm install shakebug-react-native
 ```
 
-### For iOS
+Or if you prefer to use Yarn instead of npm:
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+ yarn add shakebug-react-native
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+### iOS
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+1. You need to provide permissions inside `ios/YourProjectName/info.plist`:
 
-## Step 3: Modifying your App
+```xml
+<key>NSCameraUsageDescription</key>
+<string></string>
 
-Now that you have successfully run the app, let's modify it.
+<key>NSMicrophoneUsageDescription</key>
+<string></string>
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+<key>NSPhotoLibraryUsageDescription</key>
+<string></string>
+```
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+2. CocoaPods installation:
 
-## Congratulations! :tada:
+```bash
+    cd ios && pod install && cd ..
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+### Android
 
-### Now what?
+Android minSdkVersion 24 required
+You can change it in `android/build.gradle`
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+```bash
+    buildscript {
+        ...
+        ext {
+            ...
+            minSdkVersion = 24 or later
+            ...
+        }
+        ...
+    }
+```
 
-# Troubleshooting
+## Usage
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+you Need to import ShakebugView in root file of application (App.js)
 
-# Learn More
 
-To learn more about React Native, take a look at the following resources:
+```javascript
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Import ShakebugView from 'shakebug-react-native';
+
+export default App = () => {
+    return(
+        <ShakebugView 
+            Android_appkey= “your android app key”  
+            iOS_appkey= “your ios app key”
+            other options...
+        >
+            //Your code...
+        </ShakebugView>
+    )	
+} 
+```
+
+If you use NavigationContainer in App.js/root file (where you import ShakebugView) then you need to pass independent as parameter in NavigationContainer
+
+```javascript
+
+Import ShakebugView from 'shakebug-react-native';
+
+export default App = () => {
+    return(
+        <ShakebugView 
+            Android_appkey= “your android app key”  
+            iOS_appkey= “your ios app key”
+            other options…
+        >
+	        <NavigationContainer independent>
+                //Your code...	
+	        </NavigationContainer>
+        </ShakebugView>
+    )	
+}
+
+```
+You can add event on click:
+
+```javascript
+
+import { Button } from 'react-native';
+import ShakebugView, { addEventKey } from 'react-native-shakebug';
+
+export default App = () => {
+    return(
+        <Button 
+            title='Prees'
+            onPress={() => {
+                addEventKey("key_name", value)
+            }}
+        />
+    )
+}
+
+```
+
+## Properties
+
+<table>
+    <tr>
+        <th>Key Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default Value</th>
+    <tr>
+    <tr>
+        <td>Android_appkey</td>
+        <td>String(required)</td>
+        <td>This initializes Shake Bug with the default invocation event. Be sure to pass <Your Key> your application key which given by ShakeBug website.</td>
+        <td></td>
+    </tr>
+       <tr>
+        <td>iOS_appkey</td>
+        <td>String(required)</td>
+        <td>This initializes Shake Bug with the default invocation event. Be sure to pass <Your Key> your application key which given by ShakeBug website.</td>
+        <td></td>
+   </tr>
+    <tr>
+        <td>showTutorialScreenFirstTime</td>
+        <td>boolean</td>
+        <td>Add the following for enabling/disabling first time tutorial screen.</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>ShakebugThemeColor</td>
+        <td>String</td>
+        <td>Developer can also set custome theme color in Shakebug SDK screens.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>changeSDKScreenTitle</td>
+        <td>Array</td>
+        <td>Developer can also set custom title for Shakebug annotate and feedback input screen.</td>
+        <td>["Annotate your bug", "Add Details"]</td>
+    </tr>
+    <tr>
+        <td>allowToReportBugByShakingMobile</td>
+        <td>boolean</td>
+        <td>Add the following to allow report bug by shaking mobile.</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>allowToReportBugByScreenCapture</td>
+        <td>boolean</td>
+        <td>Add the following to allow report bug by screenshot capture event.</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>ShakebugLanguage</td>
+        <td>String</td>
+        <td>If you want to set forcefully any language for the bug reporting screen then use following prop.</td>
+        <td>Your Device's language</td>
+    </tr>
+    <tr>
+        <td>allowCrashReport</td>
+        <td>boolean</td>
+        <td>If you want to allow report crash while app get crashed then use following prop.</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>makeLogEnabled</td>
+        <td>boolean</td>
+        <td>If you want to show any logs on console then use following prop.</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>setShakebugSDKEndPointURL</td>
+        <td>Array</td>
+        <td>If you have on-premise hosting plan then following prop will be used.</td>
+        <td></td>
+    </tr>
+</table>
+
+## Methods
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Usage</th>
+    </tr>
+    <tr>
+        <td>addEventKey</td>
+        <td>If you want add event to any screen or activity use following method</td>
+        <td>addEventKey("Key_name", value)</td>
+    </tr>
+</table>
+
+## Documentation
+
+[View our documentation](https://www.shakebug.com/installation#react). 
+
+## Contact
+
+Visit on: [https://www.shakebug.com](https://www.shakebug.com).
+
+Contact us on [support@shakebug.com](mailto:support@shakebug.com) in case of any use.
