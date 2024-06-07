@@ -6221,10 +6221,10 @@ setprototypeof@1.2.0:
   resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-shakebug-react-native@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.npmjs.org/shakebug-react-native/-/shakebug-react-native-1.0.5.tgz"
-  integrity sha512-ese9rQXHTO6z7qwk8D3xxU/Ov5L4sLxbvfhnWjUTAcYthdHhVbvTunEduQC1VMo+zERuSuDgKsHl6pMJluOQLQ==
+shakebug-react-native@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/shakebug-react-native/-/shakebug-react-native-1.0.6.tgz"
+  integrity sha512-ftvL1d5eaVkMXbCaXYUII28wWzGIGntcKCsekByTE8mI9WibNQZyC6yqYM+VqHMkD8VGrBrg04FPnfQCR0YQ0Q==
   dependencies:
     "@react-navigation/native" "^6.1.9"
     html2canvas "^1.4.1"

@@ -1,14 +1,15 @@
 import React from 'react'
-import { View, Text, SafeAreaView, StatusBar, Image, TouchableOpacity, Linking } from 'react-native'
-import ShakebugView, { addEventKey } from 'shakebug-react-native'
+import { View, Text, SafeAreaView, StatusBar, Image, TouchableOpacity, Linking, TextInput } from 'react-native'
+import ShakebugView, { addEventKey, triggerBugReporting } from 'shakebug-react-native'
 
 const App = () => {
 
   return (
     <ShakebugView
-      iOS_appkey='oLzY5N4Rt3cqLhycKbDnJDa9X5n2GJ'
-      Android_appkey='rPUOZUwtgJKVOkL0SBoG44sR3xmBGa'
+      iOS_appkey='*****************' //Enter your ios app key
+      Android_appkey='********************' //Enter your android app key
       allowToReportBugByScreenCapture={true}
+      makeLogEnabled={true}
     >
       <StatusBar
         backgroundColor={"#f2f2f2"}
@@ -35,7 +36,7 @@ const App = () => {
               width: "80%"
             }}
           />
-
+          
           <TouchableOpacity
             style={{
               width: '80%',
@@ -45,6 +46,32 @@ const App = () => {
               justifyContent: 'center',
               borderRadius: 10,
               marginTop: '20%',
+            }}
+
+            onPress={() => {
+                triggerBugReporting()
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: '500',
+                color: '#2A2A2A'
+              }}
+            >
+              Trigger Shakebug
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              width: '80%',
+              height: 42,
+              backgroundColor: '#1dd3e3',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 10,
+              marginTop: '5%',
               marginBottom: '20%',
             }}
 
@@ -62,6 +89,7 @@ const App = () => {
               Add Event
             </Text>
           </TouchableOpacity>
+
 
           <View
             style={{
