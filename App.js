@@ -1,13 +1,13 @@
 import React from 'react'
 import { View, Text, SafeAreaView, StatusBar, Image, TouchableOpacity, Linking, TextInput } from 'react-native'
-import ShakebugView, { addEventKey, triggerBugReporting } from 'shakebug-react-native'
+import ShakebugView, { ShakebugSdkProtectedView, addEventKey, triggerBugReporting } from 'shakebug-react-native'
 
 const App = () => {
 
   return (
     <ShakebugView
       iOS_appkey='*****************' //Enter your ios app key
-      Android_appkey='********************' //Enter your android app key
+      Android_appkey='rPUOZUwtgJKVOkL0SBoG44sR3xmBGa' //Enter your android app key
       allowToReportBugByScreenCapture={true}
       makeLogEnabled={true}
     >
@@ -29,14 +29,23 @@ const App = () => {
             backgroundColor: '#f2f2f2'
           }}
         >
-          <Image
-            source={require("./Assets/Images/logo.png")}
-            resizeMode='contain'
+          <View
             style={{
-              width: "80%"
+              width: '100%',
+              height: 200,
+              alignItems: 'center'
             }}
-          />
-          
+          >
+            <Image
+              source={require("./Assets/Images/logo.png")}
+              resizeMode='contain'
+              style={{
+                width: "80%",
+                height: '100%'
+              }}
+            />
+          </View>
+
           <TouchableOpacity
             style={{
               width: '80%',
@@ -49,7 +58,7 @@ const App = () => {
             }}
 
             onPress={() => {
-                triggerBugReporting()
+              triggerBugReporting()
             }}
           >
             <Text
@@ -63,69 +72,76 @@ const App = () => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{
-              width: '80%',
-              height: 42,
-              backgroundColor: '#1dd3e3',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 10,
-              marginTop: '5%',
-              marginBottom: '20%',
-            }}
+          <View style={{
+            width: '80%', marginTop: '5%',
+            marginBottom: '20%',
+          }}>
+            <ShakebugSdkProtectedView>
+              <TouchableOpacity
+                style={{
+                  width: '100%',
+                  height: 42,
+                  backgroundColor: '#1dd3e3',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 10
+                }}
 
-            onPress={() => {
-              addEventKey("TestingEvent", 'test')
-            }}
-          >
-            <Text
+                onPress={() => {
+                  addEventKey("TestingEvent", 'test')
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: '500',
+                    color: '#2A2A2A'
+                  }}
+                >
+                  Add Event
+                </Text>
+              </TouchableOpacity>
+            </ShakebugSdkProtectedView>
+          </View>
+
+          <ShakebugSdkProtectedView>
+            <View
               style={{
-                fontSize: 18,
-                fontWeight: '500',
-                color: '#2A2A2A'
-              }}
-            >
-              Add Event
-            </Text>
-          </TouchableOpacity>
-
-
-          <View
-            style={{
-              width: '80%',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: '400',
-                color: '#2A2A2A',
-                textAlign: 'center'
-              }}
-            >
-              For more information, visit
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                Linking.openURL("https://www.shakebug.com")
+                width: '80%',
+                flexDirection: 'column',
+                alignItems: 'center'
               }}
             >
               <Text
                 style={{
                   fontSize: 18,
                   fontWeight: '400',
-                  color: '#1dd3e3',
-                  textAlign: 'center',
-                  marginLeft: 5
+                  color: '#2A2A2A',
+                  textAlign: 'center'
                 }}
               >
-                shakebug.com
+                For more information, visit
               </Text>
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL("https://www.shakebug.com")
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: '400',
+                    color: '#1dd3e3',
+                    textAlign: 'center',
+                    marginLeft: 5
+                  }}
+                >
+                  shakebug.com
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ShakebugSdkProtectedView>
+
         </View>
 
       </SafeAreaView>
